@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Albums</title>
+</head>
+<body>
+<p>
+  Add album
+</p>
+
+
+
+<form action="#" th:action="@{/albums}" th:object="${albumm}"  method="post">
+  <p>Title: <input type="text" th:field="*{title}"/></p>
+  <p>Artist: <input type="text" th:field="*{artist}"/></p>
+  <p>songCount: <input type="number" th:field="*{songCount}"/></p>
+  <p>length: <input type="number" th:field="*{length}"/></p>
+  <p>imageUrl: <input type="text" th:field="*{imageUrl}"/></p>
+  <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"></p>
+</form>
+
+
+</body>
+</html>
