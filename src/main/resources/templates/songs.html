@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>
+    Songs
+</p>
+
+<form action="#" th:action="@{'/albums/'+${album.getId()}}" th:object="${song}"  method="post">
+    <p>Title: <input type="text" th:field="*{title}"/></p>
+    <p>trackNumber: <input type="text" th:field="*{trackNumber}"/></p>
+    <p>length: <input type="number" th:field="*{length}"/></p>
+
+    <p><input type="submit" value="Submit"/> </p>
+</form>
+
+
+</body>
+</html>

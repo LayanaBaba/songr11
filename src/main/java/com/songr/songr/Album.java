@@ -1,19 +1,32 @@
 package com.songr.songr;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@JsonIgnoreProperties(value = {"songs"})
 //@Table(name = "Album")
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    @Column(name="greeting_content", length=50, nullable=false, unique=true)
+//    @Column(name="greeting_content", length=50, nullable=false, unique=true
     private String title;
     private String artist;
     private int songCount;
     private int length;
     private String imageUrl;
+
+    @OneToMany(mappedBy = "album")
+    private List<Song> songs;
+    // public List<Song> songs;
+//    public List<Album> albums;
+//    Song songg=new Song();
+//    public List<Album> getAlbums() {
+//        return albums.add(songs.add(" ",""));
+//    }
 
     public Album(String title, String artist, int songCount, int length, String imageUrl) {
         this.title = title;
@@ -30,6 +43,11 @@ public class Album {
     public Album() {
 
     }
+
+    public List<Song> getSongs() {
+        return songs;
+    }
+
 
     public String getTitle() {
         return title;
