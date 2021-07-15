@@ -16,6 +16,9 @@ public class application {
     @Autowired
     private AlbumRepository albumRepository ;
 
+    @Autowired
+    private SongRepository songRepository;
+
     @GetMapping("/hello")
     public String helloWorld(@RequestParam(name="name", required = false, defaultValue = "hello world") String name, Model model) {
         return "helloWorld";
@@ -30,28 +33,12 @@ public class application {
 
     @GetMapping("/albums")
     public String getAlbum(Model model){
-//        ArrayList<Album> album = new ArrayList<>();
-//
-//        var album1= new Album("title1","artist1",2,5,"url1");
-//        var album2= new Album("title2","artist2",2,5,"url2");
-//        var album3= new Album("title3","artist3",2,5,"url3");
-//
-//       album.add(album1);
-//       album.add(album2);
-//       album.add(album3);
 
         List<Album> albums= albumRepository.findAll();
         model.addAttribute("albumm", new Album());
         model.addAttribute("albums",albums);
-
-
         return "albums";
     }
-//
-//    @GetMapping("/addalbum")
-//    public String addAlbum(){
-//        return "addalbum";
-//    }
 
     @PostMapping("/albums")
 
@@ -62,5 +49,36 @@ public class application {
         model.addAttribute("albums", album);
         return "addalbum";
 
+    }
+
+    @GetMapping("/songs")
+    public String getSongs(Model model){
+
+        List<Song> songs= songRepository.findAll();
+//        model.addAttribute("songs", new Album());
+        model.addAttribute("songs",songs);
+        return "songs";
+    }
+
+    @GetMapping("/albums/{id}")
+    public String getAlbumSongs(@PathVariable Long id, Model model){
+        Album album = albumRepository.findById(id).orElseThrow();
+        model.addAttribute("song",new Song());
+        model.addAttribute("album",album);
+        model.addAttribute("songs",album.getSongs());
+
+        return "songs";
+    }
+
+    @PostMapping("/albums/{id}")
+    public String addAlbumSongs(@PathVariable Long id,@ModelAttribute Song song, Model model){
+        Album album = albumRepository.findById(id).orElseThrow();
+        song.setAlbum(album);
+        songRepository.save(song);
+        model.addAttribute("song",new Song());
+        model.addAttribute("album",album);
+        model.addAttribute("songs",album.getSongs());
+
+        return "albumsong";
     }
 }

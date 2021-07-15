@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul th:each="songs : ${songs}">
+    <li th:text="'Song Title: ' + ${songs.title}"></li>
+    <li th:text="'Album title: ' +${songs.getAlbum().title}"></li>
+    <li th:text="'trackNumber: ' +${songs.trackNumber}"></li>
+    <li th:text="'Length: ' +${songs.length}"></li>
+    <img th:src="${songs.getAlbum().imageUrl}">
+</ul>
+</body>
+</html>
